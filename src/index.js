@@ -17,7 +17,7 @@ import rootReducer from "./reducers/rootReducer";
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(reduxPromise(), thunk, logger))
+  composeWithDevTools(applyMiddleware(reduxPromise, thunk, logger))
 );
 
 ReactDOM.render(
