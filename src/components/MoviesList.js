@@ -6,7 +6,11 @@ const MoviesList = ({ movies }) => {
   const emptyMessage = <p>There are no movies yet.</p>;
   const moviesList = (
     <div>
-      {movies.error.response ? <h3>Retrieving data</h3> : <h3>HATA YOK</h3>}
+      {movies.error.response ? (
+        <h3>Retrieving data</h3>
+      ) : (
+        movies.movies.map(movie => <div key={movie.id}>{movie.title}</div>)
+      )}
     </div>
   );
 
