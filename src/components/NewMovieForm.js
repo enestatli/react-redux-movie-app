@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Form, Image } from "semantic-ui-react";
+import PropTypes from "prop-types";
 
 import InlineError from "./InlineError";
 
@@ -8,6 +9,10 @@ export default class NewMovieForm extends Component {
     title: "",
     cover: "",
     errors: {}
+  };
+
+  static propTypes = {
+    onNewMovieSubmit: PropTypes.func.isRequired
   };
 
   handleChange = e => {
@@ -21,6 +26,10 @@ export default class NewMovieForm extends Component {
     this.setState({
       errors
     });
+
+    if (Object.keys(errors).length === 0) {
+      this.props.onNewMovieSubmit(this.state);
+    }
   };
 
   validate = () => {

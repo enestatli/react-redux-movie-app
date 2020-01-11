@@ -5,7 +5,8 @@ export const NEW_MOVIE_PENDING = "NEW_MOVIE_PENDING";
 export const NEW_MOVIE_FULFILLED = "NEW_MOVIE_FULFILLED";
 export const NEW_MOVIE_REJECTED = "NEW_MOVIE_REJECTED";
 
-export function fetchMovies() {
+export function onNewMoviewSubmit({ title, cover }) {
+  console.log(title, cover);
   return dispatch => {
     dispatch({
       type: "NEW_MOVIE",
