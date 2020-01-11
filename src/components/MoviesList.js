@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Grid } from "semantic-ui-react";
+import { HashLoader } from "react-spinners";
 
 import MovieCard from "./MovieCard";
 
@@ -9,6 +10,7 @@ const MoviesList = ({ movies }) => {
   const emptyMessage = <p>There are no movies yet.</p>;
   const moviesList = (
     <div>
+      <HashLoader size={40} color={"#36bdb3"} loading={movies.fetching} />
       {movies.error.response ? (
         <h3>Retrieving data</h3>
       ) : (

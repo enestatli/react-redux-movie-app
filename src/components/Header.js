@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Container, Image, Menu, Visibility } from "semantic-ui-react";
 
 import { menuStyle, fixedMenuStyle } from "../helpers/styleHelper";
@@ -29,14 +29,15 @@ export default class Header extends Component {
             style={menuFixed ? fixedMenuStyle : menuStyle}
           >
             <Container text>
-              <Menu.Item>
+              <Menu.Item as={Link} to="/" exact="true">
                 <Image
                   size="mini"
                   src="https://react.semantic-ui.com/logo.png"
                 />
+                <Menu.Item header>Movie App</Menu.Item>
               </Menu.Item>
-              <Menu.Item header>Movie App</Menu.Item>
-              <Menu.Item as={Link} to="/movies">
+
+              <Menu.Item as={NavLink} to="/movies" exact={true}>
                 Movies
               </Menu.Item>
               <Menu.Item as="a">Add New</Menu.Item>
