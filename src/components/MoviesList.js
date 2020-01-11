@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Grid } from "semantic-ui-react";
+
+import MovieCard from "./MovieCard";
 
 //rafcp
 const MoviesList = ({ movies }) => {
@@ -9,7 +12,11 @@ const MoviesList = ({ movies }) => {
       {movies.error.response ? (
         <h3>Retrieving data</h3>
       ) : (
-        movies.movies.map(movie => <div key={movie.id}>{movie.title}</div>)
+        <Grid stackable columns={3}>
+          {movies.movies.map(movie => (
+            <MovieCard key={movie._id} movie={movie} />
+          ))}
+        </Grid>
       )}
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Container, Image, Menu, Visibility } from "semantic-ui-react";
 
 import { menuStyle, fixedMenuStyle } from "../helpers/styleHelper";
