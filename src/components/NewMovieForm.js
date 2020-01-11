@@ -1,21 +1,47 @@
 import React, { Component } from "react";
 import { Button, Form, Image } from "semantic-ui-react";
 
+import InlineError from "./InlineError";
+
 export default class NewMovieForm extends Component {
   state = {
     title: "",
-    cover: ""
+    cover: "",
+    errors: {}
   };
+
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  onSubmit = () => {
+    const errors = this.validate();
+    this.setState({
+      errors
+    });
+  };
+
+  validate = () => {
+    const errors = {};
+    if (!this.state.title) errors.title = "Can't be blank";
+    if (!this.state.cover) errors.cover = "Can't be blank";
+    return errors;
+  };
+
   render() {
+    const { errors } = this.state;
     return (
       <div>
         <h2>New Movie</h2>
-        <Form>
+        <Form onSubmit={this.onSubmit}>
           <Form.Field>
             <label>Title</label>
+            {errors.title && <InlineError message={errors.title} />}
             <input
               id="title"
-              naem="title"
+              name="title"
               value={this.state.title}
               onChange={this.handleChange}
               placeholder="Title"
@@ -23,6 +49,7 @@ export default class NewMovieForm extends Component {
           </Form.Field>
           <Form.Field>
             <label>Cover Url</label>
+            {errors.cover && <InlineError message={errors.cover} />}
             <input
               id="cover"
               name="cover"
@@ -31,7 +58,7 @@ export default class NewMovieForm extends Component {
               placeholder="Cover Url"
             />
           </Form.Field>
-          <Image src="/images/wireframe/image.png" size="small" />
+          <Image src={this.state.cover} size="small" />
           <div className="clearfix"></div>
           <Button primary type="submit">
             Submit
