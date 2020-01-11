@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import NewMovieForm from "../NewMovieForm";
-import { onNewMoviewSubmit } from "../../actions/newMovie";
+import { onNewMovieSubmit } from "../../actions/newMovie";
 
 class NewMoviePage extends Component {
   constructor(props) {
@@ -12,7 +12,10 @@ class NewMoviePage extends Component {
   render() {
     return (
       <div>
-        <NewMovieForm onNewMoviewSubmit={this.props.onNewMoviewSubmit} />
+        <NewMovieForm
+          newMovie={this.props.newMovie}
+          onNewMovieSubmit={this.props.onNewMovieSubmit}
+        />
       </div>
     );
   }
@@ -25,7 +28,7 @@ const mapStateToProps = ({ newMovie }) => {
 };
 
 const mapDispatchToProps = {
-  onNewMoviewSubmit
+  onNewMovieSubmit
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewMoviePage);
