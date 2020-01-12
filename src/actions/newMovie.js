@@ -10,9 +10,10 @@ export function onNewMovieSubmit({ title, cover }) {
   return dispatch => {
     dispatch({
       type: "NEW_MOVIE",
-      payload: axios
-        .get(`${API_BASE}/movies`)
-        .then(result => result.data.movies)
+      payload: axios.post(`${API_BASE}/movies`, {
+        title,
+        cover
+      })
     });
   };
 }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form, Image } from "semantic-ui-react";
+import { Button, Form, Image, Message } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 import InlineError from "./InlineError";
@@ -43,8 +43,7 @@ export default class NewMovieForm extends Component {
     const { errors } = this.state;
     return (
       <div>
-        <h2>New Movie</h2>
-        <Form onSubmit={this.onSubmit}>
+        <Form onSubmit={this.onSubmit} loading={this.props.newMovie.fetching}>
           <Form.Field error={!!errors.title}>
             <label>Title</label>
             {errors.title && <InlineError message={errors.title} />}
@@ -72,6 +71,14 @@ export default class NewMovieForm extends Component {
           <Button primary type="submit">
             Submit
           </Button>
+          {this.props.newMovie.error.response && (
+            <Message negative>
+              <Message.Header>
+                We're sorry we can't apply that discount
+              </Message.Header>
+              <p>That offer has expired</p>
+            </Message>
+          )}
         </Form>
       </div>
     );
