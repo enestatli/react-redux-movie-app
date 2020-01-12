@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { Button, Form, Image, Message } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
@@ -41,46 +42,47 @@ export default class NewMovieForm extends Component {
 
   render() {
     const { errors } = this.state;
+    const form = (
+      <Form onSubmit={this.onSubmit} loading={this.props.newMovie.fetching}>
+        <Form.Field error={!!errors.title}>
+          <label>Title</label>
+          {errors.title && <InlineError message={errors.title} />}
+          <input
+            id="title"
+            name="title"
+            value={this.state.title}
+            onChange={this.handleChange}
+            placeholder="Title"
+          />
+        </Form.Field>
+        <Form.Field error={!!errors.cover}>
+          <label>Cover Url</label>
+          {errors.cover && <InlineError message={errors.cover} />}
+          <input
+            id="cover"
+            name="cover"
+            value={this.state.cover}
+            onChange={this.handleChange}
+            placeholder="Cover Url"
+          />
+        </Form.Field>
+        <Image src={this.state.cover} size="small" />
+        <div className="clearfix"></div>
+        <Button primary type="submit">
+          Submit
+        </Button>
+        {this.props.newMovie.error.response && (
+          <Message negative>
+            <Message.Header>
+              We're sorry we can't apply that discount
+            </Message.Header>
+            <p>That offer has expired</p>
+          </Message>
+        )}
+      </Form>
+    );
     return (
-      <div>
-        <Form onSubmit={this.onSubmit} loading={this.props.newMovie.fetching}>
-          <Form.Field error={!!errors.title}>
-            <label>Title</label>
-            {errors.title && <InlineError message={errors.title} />}
-            <input
-              id="title"
-              name="title"
-              value={this.state.title}
-              onChange={this.handleChange}
-              placeholder="Title"
-            />
-          </Form.Field>
-          <Form.Field error={!!errors.cover}>
-            <label>Cover Url</label>
-            {errors.cover && <InlineError message={errors.cover} />}
-            <input
-              id="cover"
-              name="cover"
-              value={this.state.cover}
-              onChange={this.handleChange}
-              placeholder="Cover Url"
-            />
-          </Form.Field>
-          <Image src={this.state.cover} size="small" />
-          <div className="clearfix"></div>
-          <Button primary type="submit">
-            Submit
-          </Button>
-          {this.props.newMovie.error.response && (
-            <Message negative>
-              <Message.Header>
-                We're sorry we can't apply that discount
-              </Message.Header>
-              <p>That offer has expired</p>
-            </Message>
-          )}
-        </Form>
-      </div>
+      <div>{this.props.newMovie.done ? <Redirect to="/movies" /> : form}</div>
     );
   }
 }
