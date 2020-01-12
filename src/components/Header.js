@@ -1,21 +1,20 @@
 import React, { Component } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Container, Image, Menu, Visibility } from "semantic-ui-react";
+import { fixedMenuStyle, menuStyle } from "../helpers/styleHelper";
+import { Container, Visibility, Menu, Image } from "semantic-ui-react";
 
-import { menuStyle, fixedMenuStyle } from "../helpers/styleHelper";
-
-export default class Header extends Component {
+class Header extends Component {
   state = {
-    menuFixed: false,
+    menuFixed: null,
     overlayFixed: false
   };
 
   stickTopMenu = () => this.setState({ menuFixed: true });
-
-  unStickTopMenu = () => this.setState({ menuFixed: false });
+  unStickTopMenu = () => this.setState({ menuFixed: null });
 
   render() {
     const { menuFixed } = this.state;
+
     return (
       <div>
         <Visibility
@@ -25,7 +24,7 @@ export default class Header extends Component {
         >
           <Menu
             borderless
-            fixed={menuFixed ? "top" : undefined}
+            fixed={menuFixed && "top"}
             style={menuFixed ? fixedMenuStyle : menuStyle}
           >
             <Container text>
@@ -34,13 +33,12 @@ export default class Header extends Component {
                   size="mini"
                   src="https://react.semantic-ui.com/logo.png"
                 />
-                <Menu.Item header>Movie App</Menu.Item>
+                <Menu.Item header>Movieapp</Menu.Item>
               </Menu.Item>
-
-              <Menu.Item as={NavLink} to="/movies" exact={true}>
+              <Menu.Item as={NavLink} to="/movies" exact>
                 Movies
               </Menu.Item>
-              <Menu.Item as={NavLink} to="/movies/new" exact={true}>
+              <Menu.Item as={NavLink} to="/movies/new">
                 Add New
               </Menu.Item>
             </Container>
@@ -50,3 +48,5 @@ export default class Header extends Component {
     );
   }
 }
+
+export default Header;
